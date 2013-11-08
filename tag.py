@@ -44,14 +44,14 @@ class Element(object):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def __unicode__(self):
-        inner = '\n'.join(unicode(i) for i in self.inner)
+    def build(self):
+        inner = '\n'.join(str(i) for i in self.inner)
         return '<{} '.format(self.tagname) \
              + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) \
              + '>\n{}\n</{}>'.format(inner, self.tagname)
 
     def __str__(self):
-        return self.__unicode__()
+        return self.build()
 
     def __iter__(self):
         'Hack to be returned to CherryPy with no prior conversion'
@@ -66,7 +66,7 @@ class Element(object):
                     raise StopIteration
                 else:
                     self.stop = True
-                    return unicode(self.parent)
+                    return str(self.parent)
 
         return TagIterator(self)
 
@@ -78,6 +78,6 @@ class EmptyElement(Element):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def __unicode__(self):
+    def __str__(self):
         return '<{} '.format(self.tagname) + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) + ' />'
 
