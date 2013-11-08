@@ -21,19 +21,6 @@
     See reference: http://www.javascriptkit.com/domref/elementproperties.shtml
 '''
 
-class Tag(object):
-
-    def __init__(self, tagname):
-        self.tagname = tagname
-
-    def __call__(self, *inner, **kwargs):
-        return Element(self.tagname, inner, **kwargs)
-
-class EmptyTag(Tag):
-
-    def __call__(self, *inner, **kwargs):
-        return EmptyElement(self.tagname, **kwargs)
-
 
 class Element(object):
 
@@ -44,14 +31,14 @@ class Element(object):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def __unicode__(self):
-        inner = u'\n'.join(unicode(i) for i in self.inner)
-        return u'<{} '.format(self.tagname) \
-             + u' '.join(key + u'="' + self.args[key] + u'"' for key in self.args) \
-             + u'>\n{}\n</{}>'.format(inner, self.tagname)
+    def build(self):
+        inner = '\n'.join(str(i) for i in self.inner)
+        return '<{} '.format(self.tagname) \
+             + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) \
+             + '>\n{}\n</{}>'.format(inner, self.tagname)
 
     def __str__(self):
-        return self.__unicode__()
+        return self.build()
 
     def __iter__(self):
         'Hack to be returned to CherryPy with no prior conversion'
@@ -66,9 +53,10 @@ class Element(object):
                     raise StopIteration
                 else:
                     self.stop = True
-                    return unicode(self.parent)
+                    return str(self.parent)
 
         return TagIterator(self)
+
 
 class EmptyElement(Element):
 
@@ -78,6 +66,28 @@ class EmptyElement(Element):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def __unicode__(self):
-        return u'<{} '.format(self.tagname) + u' '.join(key + u'="' + self.args[key] + u'"' for key in self.args) + u' />'
+    def __str__(self):
+        return '<{} '.format(self.tagname) + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) + ' />'
+
+
+class HTMLElement(Element):
+    
+    def build(self):
+        return '<!doctype html>\n' + Element.build(self)
+
+
+class Tag(object):
+
+    def __init__(self, tagname, element=Element):
+        self.tagname = tagname
+        self.element = element
+
+    def __call__(self, *inner, **kwargs):
+        return self.element(self.tagname, inner, **kwargs)
+
+class EmptyTag(Tag):
+
+    def __call__(self, *inner, **kwargs):
+        return EmptyElement(self.tagname, **kwargs)
+
 

@@ -18,40 +18,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 '''
-    Tumulus implementation of HTML5 tags. No magic here, just the reference.
+    Intermediate level tools, built on top of HTML tags.
 '''
 
-from tumulus.tag import Tag, EmptyTag, HTMLElement
+import tumulus.tags as t
 
-html = Tag('html', HTMLElement)
+def css(href):
+    return t.link(rel='stylesheet', type='text/css', href=href)
 
-head = Tag('head')
-meta = EmptyTag('meta')
-title = Tag('title')
-style = Tag('style')
-
-link = EmptyTag('link')
-script = Tag('script')
-img = Tag('img')
-
-body = Tag('body')
-div = Tag('div')
-span = Tag('span')
-
-h1 = Tag('h1')
-h2 = Tag('h2')
-h3 = Tag('h3')
-
-header = Tag('header')
-section = Tag('section')
-ul = Tag('ul')
-li = Tag('li')
-br = Tag('br')
-
-a = Tag('a')
-p = Tag('p')
-i = Tag('i')
-
-form = Tag('form')
-input_ = EmptyTag('input')
-textarea = Tag('textarea')
