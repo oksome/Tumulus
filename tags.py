@@ -19,33 +19,33 @@
 
 from tumulus.tag import Tag, EmptyTag
 
-html = Tag(u'html')
+html = Tag('html')
 
-head = Tag(u'head')
-meta = EmptyTag(u'meta')
-title = Tag(u'title')
-style = Tag(u'style')
+head = Tag('head')
+meta = EmptyTag('meta')
+title = Tag('title')
+style = Tag('style')
 
-link = Tag(u'link')
-script = Tag(u'script')
-img = Tag(u'img')
+link = Tag('link')
+script = Tag('script')
+img = Tag('img')
 
-body = Tag(u'body')
-div = Tag(u'div')
-span = Tag(u'span')
+body = Tag('body')
+div = Tag('div')
+span = Tag('span')
 
-h1 = Tag(u'h1')
-h2 = Tag(u'h2')
-h3 = Tag(u'h3')
+h1 = Tag('h1')
+h2 = Tag('h2')
+h3 = Tag('h3')
 
-header = Tag(u'header')
-section = Tag(u'section')
-ul = Tag(u'ul')
-li = Tag(u'li')
-br = Tag(u'br')
+header = Tag('header')
+section = Tag('section')
+ul = Tag('ul')
+li = Tag('li')
+br = Tag('br')
 
-a = Tag(u'a')
+a = Tag('a')
 
-form = Tag(u'form')
-input_ = EmptyTag(u'input')
-textarea = Tag(u'textarea')
+form = Tag('form')
+input_ = EmptyTag('input')
+textarea = Tag('textarea')

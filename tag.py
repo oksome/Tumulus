@@ -45,10 +45,10 @@ class Element(object):
         self.args = kwargs
 
     def __unicode__(self):
-        inner = u'\n'.join(unicode(i) for i in self.inner)
-        return u'<{} '.format(self.tagname) \
-             + u' '.join(key + u'="' + self.args[key] + u'"' for key in self.args) \
-             + u'>\n{}\n</{}>'.format(inner, self.tagname)
+        inner = '\n'.join(unicode(i) for i in self.inner)
+        return '<{} '.format(self.tagname) \
+             + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) \
+             + '>\n{}\n</{}>'.format(inner, self.tagname)
 
     def __str__(self):
         return self.__unicode__()
@@ -79,5 +79,5 @@ class EmptyElement(Element):
         self.args = kwargs
 
     def __unicode__(self):
-        return u'<{} '.format(self.tagname) + u' '.join(key + u'="' + self.args[key] + u'"' for key in self.args) + u' />'
+        return '<{} '.format(self.tagname) + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) + ' />'
 
