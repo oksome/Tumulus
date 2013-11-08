@@ -46,6 +46,7 @@ br = Tag('br')
 
 a = Tag('a')
 p = Tag('p')
+i = Tag('i')
 
 form = Tag('form')
 input_ = EmptyTag('input')
