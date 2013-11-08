@@ -30,3 +30,9 @@ def youtube(video_id):
         frameborder="0", allowfullscreen='')
                
 
+def vimeo(video_id):
+    return t.iframe(
+        src="https://player.vimeo.com/video/{}".format(video_id),
+        width="640", height="360", frameborder="0",
+        webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
+
