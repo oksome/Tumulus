@@ -26,3 +26,5 @@ import tumulus.tags as t
 def css(href):
     return t.link(rel='stylesheet', type='text/css', href=href)
 
+def mobile():
+    return t.meta(name="viewport", content="width=device-width, user-scalable=no")
