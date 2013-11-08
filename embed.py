@@ -11,21 +11,20 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+'''
+    Embed external sources such as YouTube videos.
+'''
 
 import tumulus.tags as t
 
-def test_html():
-    r = t.html('Hello')
+def youtube(video_id):
+    return t.div('''<iframe id="ytplayer" type="text/html" width="640" height="360"
+    src="https://www.youtube.com/embed/{}"
+    frameborder="0" allowfullscreen>'''.format(video_id))
 
-def test_page():
-    r = t.html(
-        t.body(
-            t.h1('Title'),
-            t.p('Paragraph'),
-        )
-    ).build()

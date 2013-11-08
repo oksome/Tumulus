@@ -17,15 +17,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import tumulus.tags as t
+import tumulus.embed as e
 
-def test_html():
-    r = t.html('Hello')
+def test_youtube():
+    r = e.youtube('dQw4w9WgXcQ')
+    print(r.build())
+    assert False
 
-def test_page():
-    r = t.html(
-        t.body(
-            t.h1('Title'),
-            t.p('Paragraph'),
-        )
-    ).build()
