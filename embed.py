@@ -24,7 +24,9 @@
 import tumulus.tags as t
 
 def youtube(video_id):
-    return t.div('''<iframe id="ytplayer" type="text/html" width="640" height="360"
-    src="https://www.youtube.com/embed/{}"
-    frameborder="0" allowfullscreen>'''.format(video_id))
+    return t.iframe(
+        id='ytplayer', type='text/html', width='640', height='360',
+        src='https://www.youtube.com/embed/{}'.format(video_id),
+        frameborder="0", allowfullscreen='')
+               
 

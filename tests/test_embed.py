@@ -21,6 +21,4 @@ import tumulus.embed as e
 
 def test_youtube():
     r = e.youtube('dQw4w9WgXcQ')
-    print(r.build())
-    assert False
-
+    r.build()

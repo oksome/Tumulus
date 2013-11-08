@@ -66,7 +66,7 @@ class EmptyElement(Element):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def __str__(self):
+    def build(self):
         return '<{} '.format(self.tagname) + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) + ' />'
 
 

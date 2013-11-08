@@ -33,6 +33,7 @@ style = Tag('style')
 link = EmptyTag('link')
 script = Tag('script')
 img = Tag('img')
+iframe = Tag('iframe')
 
 body = Tag('body')
 div = Tag('div')
