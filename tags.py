@@ -17,9 +17,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from tumulus.tag import Tag, EmptyTag
+from tumulus.tag import Tag, EmptyTag, HTMLElement
 
-html = Tag('html')
+html = Tag('html', HTMLElement)
 
 head = Tag('head')
 meta = EmptyTag('meta')
@@ -45,6 +45,7 @@ li = Tag('li')
 br = Tag('br')
 
 a = Tag('a')
+p = Tag('p')
 
 form = Tag('form')
 input_ = EmptyTag('input')

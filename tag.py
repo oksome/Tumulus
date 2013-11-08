@@ -21,19 +21,6 @@
     See reference: http://www.javascriptkit.com/domref/elementproperties.shtml
 '''
 
-class Tag(object):
-
-    def __init__(self, tagname):
-        self.tagname = tagname
-
-    def __call__(self, *inner, **kwargs):
-        return Element(self.tagname, inner, **kwargs)
-
-class EmptyTag(Tag):
-
-    def __call__(self, *inner, **kwargs):
-        return EmptyElement(self.tagname, **kwargs)
-
 
 class Element(object):
 
@@ -70,6 +57,7 @@ class Element(object):
 
         return TagIterator(self)
 
+
 class EmptyElement(Element):
 
     def __init__(self, tagname, **kwargs):
@@ -80,4 +68,26 @@ class EmptyElement(Element):
 
     def __str__(self):
         return '<{} '.format(self.tagname) + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) + ' />'
+
+
+class HTMLElement(Element):
+    
+    def build(self):
+        return '<!doctype html>\n' + Element.build(self)
+
+
+class Tag(object):
+
+    def __init__(self, tagname, element=Element):
+        self.tagname = tagname
+        self.element = element
+
+    def __call__(self, *inner, **kwargs):
+        return self.element(self.tagname, inner, **kwargs)
+
+class EmptyTag(Tag):
+
+    def __call__(self, *inner, **kwargs):
+        return EmptyElement(self.tagname, **kwargs)
+
 
