@@ -21,7 +21,7 @@
     See reference: http://www.javascriptkit.com/domref/elementproperties.shtml
 '''
 
-from .element import Element, EmptyElement, HTMLElement
+from .element import Element, EmptyElement
 
 
 class Tag(object):
