@@ -21,59 +21,7 @@
     See reference: http://www.javascriptkit.com/domref/elementproperties.shtml
 '''
 
-
-class Element(object):
-
-    def __init__(self, tagname, inner, **kwargs):
-        self.tagname = tagname
-        self.inner = inner
-        if 'class_' in kwargs:
-            kwargs['class'] = kwargs.pop('class_')
-        self.args = kwargs
-
-    def build(self):
-        inner = '\n'.join(str(i) for i in self.inner)
-        return '<{} '.format(self.tagname) \
-             + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) \
-             + '>\n{}\n</{}>'.format(inner, self.tagname)
-
-    def __str__(self):
-        return self.build()
-
-    def __iter__(self):
-        'Hack to be returned to CherryPy with no prior conversion'
-        class TagIterator(object):
-
-            def __init__(self, parent):
-                self.stop = False
-                self.parent = parent
-
-            def next(self):
-                if self.stop:
-                    raise StopIteration
-                else:
-                    self.stop = True
-                    return str(self.parent)
-
-        return TagIterator(self)
-
-
-class EmptyElement(Element):
-
-    def __init__(self, tagname, **kwargs):
-        self.tagname = tagname
-        if 'class_' in kwargs:
-            kwargs['class'] = kwargs.pop('class_')
-        self.args = kwargs
-
-    def build(self):
-        return '<{} '.format(self.tagname) + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) + ' />'
-
-
-class HTMLElement(Element):
-    
-    def build(self):
-        return '<!doctype html>\n' + Element.build(self)
+from .element import Element, EmptyElement, HTMLElement
 
 
 class Tag(object):
@@ -85,9 +33,8 @@ class Tag(object):
     def __call__(self, *inner, **kwargs):
         return self.element(self.tagname, inner, **kwargs)
 
+
 class EmptyTag(Tag):
 
     def __call__(self, *inner, **kwargs):
         return EmptyElement(self.tagname, **kwargs)
-
-
