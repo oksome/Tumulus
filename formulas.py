@@ -31,3 +31,7 @@ def css(href):
 def mobile():
     return t.meta(name="viewport",
                   content="width=device-width, user-scalable=no")
+
+
+def utf8():
+    return t.meta(charset='utf-8')
