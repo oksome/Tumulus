@@ -7,7 +7,9 @@ Example
 ---
 
 ```python
-    t.html(
+    import tumulus.tags as t
+    
+    page = t.html(
         t.head(
             t.title('Title'),
             t.meta(charset='utf-8'),
@@ -21,4 +23,6 @@ Example
             t.p('Come back later for more !'),
         ),
     )
+    
+    print t.build()
 ```

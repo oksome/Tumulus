@@ -21,7 +21,8 @@
     Tumulus implementation of HTML5 tags. No magic here, just the reference.
 '''
 
-from tumulus.tag import Tag, EmptyTag, HTMLElement
+from .tag import Tag, EmptyTag
+from .element import HTMLElement
 
 html = Tag('html', HTMLElement)
 

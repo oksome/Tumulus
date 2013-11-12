@@ -23,16 +23,16 @@
 
 import tumulus.tags as t
 
+
 def youtube(video_id):
     return t.iframe(
         id='ytplayer', type='text/html', width='640', height='360',
         src='https://www.youtube.com/embed/{}'.format(video_id),
         frameborder="0", allowfullscreen='')
-               
+
 
 def vimeo(video_id):
     return t.iframe(
         src="https://player.vimeo.com/video/{}".format(video_id),
         width="640", height="360", frameborder="0",
         webkitallowfullscreen='', mozallowfullscreen='', allowfullscreen='')
-
