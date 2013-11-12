@@ -38,6 +38,7 @@ iframe = Tag('iframe')
 body = Tag('body')
 div = Tag('div')
 span = Tag('span')
+pre = Tag('pre')
 
 h1 = Tag('h1')
 h2 = Tag('h2')
