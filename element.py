@@ -20,13 +20,6 @@
 import copy
 
 
-def build(element):
-    if hasattr(element, 'build'):
-        return element.build()
-    else:
-        return str(element), {}
-
-
 class Element(object):
 
     def __init__(self, tagname, inner, injections=None, **kwargs):
