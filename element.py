@@ -17,12 +17,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import copy
+
+
+def build(element):
+    if hasattr(element, 'build'):
+        return element.build()
+    else:
+        return str(element), {}
+
 
 class Element(object):
 
-    def __init__(self, tagname, inner, **kwargs):
+    def __init__(self, tagname, inner, injections=None, **kwargs):
         self.tagname = tagname
         self.inner = inner
+        self._injections = injections if injections else []
         if 'class_' in kwargs:
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
@@ -35,6 +45,13 @@ class Element(object):
 
     def __str__(self):
         return self.build()
+
+    def injections(self):
+        result = copy.copy(self._injections)
+        for i in self.inner:
+            if hasattr(i, 'injections'):
+                result += i.injections()
+        return result
 
     def __iter__(self):
         'Hack to be returned to CherryPy with no prior conversion'
