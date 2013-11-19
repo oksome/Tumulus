@@ -1,7 +1,7 @@
 import html
 import time
 
-import tumulus.tags as t
+from tumulus.tags import HTMLTags as t
 import tumulus.formulas as f
 import tumulus.embed as e
 

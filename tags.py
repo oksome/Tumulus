@@ -22,39 +22,41 @@
 '''
 
 from .tag import Tag, EmptyTag
-from .element import HTMLElement
+from .element import Element, HTMLElement
 
-html = Tag('html', HTMLElement)
 
-head = Tag('head')
-meta = EmptyTag('meta')
-title = Tag('title')
-style = Tag('style')
+class HTMLTagsGenerator():
 
-link = EmptyTag('link')
-script = Tag('script')
-img = Tag('img')
-iframe = Tag('iframe')
+    _tag_elements = {
+        'html': HTMLElement,
+    }
 
-body = Tag('body')
-div = Tag('div')
-span = Tag('span')
-pre = Tag('pre')
+    _empty_tags = 'meta', 'link', 'input', 'br'
 
-h1 = Tag('h1')
-h2 = Tag('h2')
-h3 = Tag('h3')
+    _closing_tags = (
+        'html',
+        'head', 'title', 'style', 'script',
+        'img', 'iframe',
+        'body', 'div', 'span', 'pre',
+        'h1', 'h2', 'h3',
+        'header', 'section',
+        'ul', 'li', 'br',
+        'a', 'p', 'i',
+        'form', 'input', 'textarea',
+        )
 
-header = Tag('header')
-section = Tag('section')
-ul = Tag('ul')
-li = Tag('li')
-br = Tag('br')
+    def __init__(self):
+        self._cache = {}
 
-a = Tag('a')
-p = Tag('p')
-i = Tag('i')
+    def __getattr__(self, name):
+        if name in self._cache:
+            return self._cache[name]
+        else:
+            element = self._tag_elements.get(name, Element)
+            if name in self._empty_tags:
+                return EmptyTag(name, element)
+            else:
+                #assert name in self._closing_tags
+                return Tag(name, element)
 
-form = Tag('form')
-input_ = EmptyTag('input')
-textarea = Tag('textarea')
+HTMLTags = HTMLTagsGenerator()
