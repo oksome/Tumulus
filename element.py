@@ -22,10 +22,9 @@ import copy
 
 class Element(object):
 
-    def __init__(self, tagname, inner, injections=None, **kwargs):
+    def __init__(self, tagname, inner, **kwargs):
         self.tagname = tagname
         self.inner = inner
-        self._injections = injections if injections else []
         if 'class_' in kwargs:
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
@@ -38,13 +37,6 @@ class Element(object):
 
     def __str__(self):
         return self.build()
-
-    def injections(self):
-        result = copy.copy(self._injections)
-        for i in self.inner:
-            if hasattr(i, 'injections'):
-                result += i.injections()
-        return result
 
     def __iter__(self):
         'Hack to be returned to CherryPy with no prior conversion'
