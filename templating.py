@@ -24,12 +24,12 @@ def template_eval(filename, **locals):
     path = 'templates/{}'.format(filename)
     with open(path) as source:
         code = compile(source.read(), path, 'eval')
-        return eval(code, {'t': t,
-                           'f': f,
-                           'e': e,
-                           'escape': html.escape,
-                           'ctime': time.ctime},
-                    locals)
+        global_vars = {'t': t,
+                       'f': f,
+                       'e': e,
+                       'escape': html.escape,
+                       'ctime': time.ctime}
+        return eval(code, global_vars, locals)
 
 
 def build_template(filename, **locals):
