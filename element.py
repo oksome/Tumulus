@@ -112,5 +112,26 @@ class EmptyElement(Element):
 
 class HTMLElement(Element):
 
-    def build(self):
+    def html(self):
+        'Adding an HTML doctype to the generated HTML.'
         return '<!doctype html>\n' + Element.build(self)
+
+    __str__ = html
+
+    def soup(self):
+        '''
+            Running plugins and adding an HTML doctype to the
+            generated Tag HTML.
+        '''
+        dom = BeautifulSoup('<!DOCTYPE html>')
+        soup = Element.soup(self)
+        dom.append(soup)
+
+        for plugin in self.plugins():
+            print('plugin', plugin)
+            dom = plugin(dom)
+
+        return dom
+
+    def build(self):
+        return self.soup().prettify()
