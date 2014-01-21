@@ -17,12 +17,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from bs4 import BeautifulSoup, Tag
+
 
 class Element(object):
 
-    def __init__(self, tagname, components, **kwargs):
+    def __init__(self, tagname, components=None, **kwargs):
         self.tagname = tagname
-        self.components = components
+        self.components = components if components else []
         if 'class_' in kwargs:
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
@@ -43,6 +45,23 @@ class Element(object):
 
     __str__ = build = html
 
+    def soup(self):
+        '''
+            Returns HTML as a BeautifulSoup element.
+        '''
+        components_soup = Tag(name=self.tagname)
+        for c in self.components:
+            if hasattr(c, 'soup'):
+                components_soup.append(c.soup())
+            elif hasattr(c, 'html'):
+                components_soup.append(BeautifulSoup(c.html()))
+            elif type(c) in (str, ):
+                components_soup.append(BeautifulSoup(str(c)))
+            else:
+                # Component should not be integrated
+                pass
+        return components_soup
+
     def plugins(self):
         '''
             Returns a flattened list of all plugins used by page components.
@@ -51,6 +70,8 @@ class Element(object):
         for c in self.components:
             if hasattr(c, 'plugins'):
                 plugins += c.plugins()
+            elif hasattr(c, 'is_plugin') and c.is_plugin:
+                plugins.append(c)
         return plugins
 
     def __iter__(self):
