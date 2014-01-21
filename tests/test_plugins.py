@@ -29,7 +29,11 @@ def test_plugin():
         t.body(
             t.h1("A page"),
             t.p("Yup, this is a page on the World Wild Web."),
-            inject_css('http://okso.me/static/style.css'),
+            inject_css('http://example.com/style.css'),
         ),
     )
-    page.build()
+    assert page
+    result = page.build()
+    assert result
+    assert '<link href="http://example.com/style.css" ' \
+           'rel="stylesheet" type="text/css">' in result
