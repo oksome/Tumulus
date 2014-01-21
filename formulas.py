@@ -21,7 +21,7 @@
     Intermediate level tools, built on top of HTML tags.
 '''
 
-import tumulus.tags as t
+from tumulus.tags import HTMLTags as t
 
 
 def css(href):

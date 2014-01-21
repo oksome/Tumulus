@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import tumulus.tags as t
+from tumulus.tags import HTMLTags as t
 
 def test_html():
     r = t.html('Hello')
@@ -29,5 +29,20 @@ def test_page():
             t.p('Paragraph'),
         )
     ).build()
-    assert r == '<!doctype html>\n<html >\n<body >\n<h1 >\nTitle\n</h1>\n<p >\nParagraph\n</p>\n</body>\n</html>'
+    print(r)
+    assert r == '''<!doctype html>
+<html >
+<body >
+<h1 >
+Title
+
+</h1>
+<p >
+Paragraph
+
+</p>
+
+</body>
+
+</html>'''
 

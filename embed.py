@@ -21,7 +21,7 @@
     Embed external sources such as YouTube videos.
 '''
 
-import tumulus.tags as t
+from tumulus.tags import HTMLTags as t
 
 
 def youtube(video_id):
