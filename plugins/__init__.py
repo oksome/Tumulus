@@ -22,26 +22,46 @@
     document so they can modify other parts of the DOM.
 '''
 
-from bs4 import BeautifulSoup, Tag
+from bs4 import Tag
 
 
-def js(URL):
-    def foo(html):
+def inject_js_footer(URL):
+    def f(html):
         tag = Tag(name='script')
-        tag = BeautifulSoup('<a href="{}" />script</a>'.format(URL)).a
-        html.append(tag)
+        tag.attrs = {
+            'type': 'text/javascript',
+            'src': URL,
+        }
+        if not html.body:
+            html.html.insert(0, Tag(name='body'))
+        html.body.append(tag)
         return html
-    foo.is_plugin = True
-    return foo
+    f.is_plugin = True
+    return f
 
 
-def inject_css(href):
+def inject_js_head(URL):
+    def f(html):
+        tag = Tag(name='script')
+        tag.attrs = {
+            'type': 'text/javascript',
+            'src': URL,
+        }
+        if not html.head:
+            html.html.insert(0, Tag(name='head'))
+        html.head.append(tag)
+        return html
+    f.is_plugin = True
+    return f
+
+
+def inject_css(URL):
     def f(html):
         tag = Tag(name='link')
         tag.attrs = {
             'type': 'text/css',
             'rel': 'stylesheet',
-            'href': href,
+            'href': URL,
         }
         if not html.head:
             html.html.insert(0, Tag(name='head'))
