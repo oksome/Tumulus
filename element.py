@@ -17,26 +17,41 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import copy
-
 
 class Element(object):
 
-    def __init__(self, tagname, inner, **kwargs):
+    def __init__(self, tagname, components, **kwargs):
         self.tagname = tagname
-        self.inner = inner
+        self.components = components
         if 'class_' in kwargs:
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def build(self):
-        inner = '\n'.join(str(i) for i in self.inner)
-        return '<{} '.format(self.tagname) \
-             + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) \
-             + '>\n{}\n</{}>'.format(inner, self.tagname)
+    def html(self):
+        components_html = ''
+        for c in self.components:
+            if hasattr(c, 'html'):
+                components_html += c.html() + '\n'
+            elif type(c) in (str, ):
+                components_html += c + '\n'
+        return ''.join((
+            '<{} '.format(self.tagname),
+            ' '.join(key + '="{}"'.format(self.args[key])
+                     for key in self.args),
+            '>\n{}\n</{}>'.format(components_html, self.tagname),
+            ))
 
-    def __str__(self):
-        return self.build()
+    __str__ = build = html
+
+    def plugins(self):
+        '''
+            Returns a flattened list of all plugins used by page components.
+        '''
+        plugins = []
+        for c in self.components:
+            if hasattr(c, 'plugins'):
+                plugins += c.plugins()
+        return plugins
 
     def __iter__(self):
         'Hack to be returned to CherryPy with no prior conversion'
@@ -64,8 +79,14 @@ class EmptyElement(Element):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def build(self):
-        return '<{} '.format(self.tagname) + ' '.join(key + '="' + self.args[key] + '"' for key in self.args) + ' />'
+    def html(self):
+        return ''.join((
+            '<{} '.format(self.tagname),
+            ' '.join(key + '="' + self.args[key] + '"' for key in self.args),
+            ' />',
+            ))
+
+    __str__ = build = html
 
 
 class HTMLElement(Element):

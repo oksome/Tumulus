@@ -29,5 +29,20 @@ def test_page():
             t.p('Paragraph'),
         )
     ).build()
-    assert r == '<!doctype html>\n<html >\n<body >\n<h1 >\nTitle\n</h1>\n<p >\nParagraph\n</p>\n</body>\n</html>'
+    print(r)
+    assert r == '''<!doctype html>
+<html >
+<body >
+<h1 >
+Title
+
+</h1>
+<p >
+Paragraph
+
+</p>
+
+</body>
+
+</html>'''
 
