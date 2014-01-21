@@ -94,8 +94,9 @@ class Element(object):
 
 class EmptyElement(Element):
 
-    def __init__(self, tagname, **kwargs):
+    def __init__(self, tagname, components=None, **kwargs):
         self.tagname = tagname
+        self.components = components if components else []
         if 'class_' in kwargs:
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
