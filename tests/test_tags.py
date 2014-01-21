@@ -19,8 +19,11 @@
 
 from tumulus.tags import HTMLTags as t
 
+
 def test_html():
     r = t.html('Hello')
+    r
+
 
 def test_page():
     r = t.html(
@@ -30,19 +33,15 @@ def test_page():
         )
     ).build()
     print(r)
-    assert r == '''<!doctype html>
-<html >
-<body >
-<h1 >
+    assert r == '''<!DOCTYPE html>
+<html>
+ <body>
+  <h1>
 Title
-
-</h1>
-<p >
+  </h1>
+  <p>
 Paragraph
-
-</p>
-
-</body>
-
+  </p>
+ </body>
 </html>'''
 
