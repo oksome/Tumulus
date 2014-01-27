@@ -9,10 +9,12 @@ page = t.html(
     t.body(
         t.h1("A page"),
         t.p("Yup, this is a page on the World Wild Web."),
-        # inject_css('http://okso.me/static/style.css'),
+        inject_css('http://okso.me/static/style.css'),
 
         lib.js('d3'),
         lib.js('jquery'),
         lib.js('http://d3js.org/d3.v3.min.js'),
+        lib.js('bootstrap'),
+        lib.css('bootstrap'),
     ),
 )

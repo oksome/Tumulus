@@ -23,8 +23,12 @@ from tumulus.plugins import inject_css, inject_js_footer, inject_js_head
 known_js_libs = {
     'd3': 'http://d3js.org/d3.v3.min.js',
     'jquery': 'https//code.jquery.com/jquery-1.10.2.min.js',
+    'bootstrap': 'https//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js',
 }
 
+known_css_libs = {
+    'bootstrap': 'https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css',
+}
 
 def is_URL(name_or_URL):
     return '//' in name_or_URL
@@ -36,5 +40,15 @@ def js(name_or_URL):
     elif name_or_URL.lower() in known_js_libs:
         URL = known_js_libs[name_or_URL.lower()]
         return inject_js_footer(URL)
+    else:
+        raise Exception
+
+
+def css(name_or_URL):
+    if is_URL(name_or_URL):
+        return inject_css(name_or_URL)
+    elif name_or_URL.lower() in known_css_libs:
+        URL = known_css_libs[name_or_URL.lower()]
+        return inject_css(URL)
     else:
         raise Exception
