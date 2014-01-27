@@ -50,6 +50,7 @@ class Element(object):
             Returns HTML as a BeautifulSoup element.
         '''
         components_soup = Tag(name=self.tagname)
+        components_soup.attrs = self.args
         for c in self.components:
             if hasattr(c, 'soup'):
                 components_soup.append(c.soup())
