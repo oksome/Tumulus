@@ -18,10 +18,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from tumulus.tags import HTMLTags as t
-from tumulus.plugins import inject_css
+from tumulus.plugins import inject_css, inject_js_head, inject_js_footer
 
 
-def test_plugin():
+def test_inject_css():
     page = t.html(
         t.head(
             t.meta(charset="utf-8"),
@@ -29,11 +29,57 @@ def test_plugin():
         t.body(
             t.h1("A page"),
             t.p("Yup, this is a page on the World Wild Web."),
-            inject_css('http://example.com/style.css'),
+            inject_css('https://example.com/style.css'),
         ),
     )
     assert page
     result = page.build()
     assert result
-    assert '<link href="http://example.com/style.css" ' \
+    assert '<link href="https://example.com/style.css" ' \
            'rel="stylesheet" type="text/css">' in result
+
+
+def test_inject_css_nohead():
+    page = t.html(
+        t.body(
+            inject_css('https://example.com/style.css'),
+        ),
+    )
+    assert page
+    result = page.build()
+    assert result
+
+
+def test_inject_js_head():
+    page = t.html(
+        t.body(
+            inject_js_head('https://example.com/script.js')
+        ),
+    )
+    assert page
+    result = page.build()
+    assert result
+    assert 'https://example.com/script.js' in result
+
+
+def test_inject_js_footer():
+    page = t.html(
+        t.body(
+            inject_js_footer('https://example.com/script.js'),
+        ),
+    )
+    assert page
+    result = page.build()
+    assert result
+    assert 'https://example.com/script.js' in result
+
+
+def test_inject_js_footer_nobody():
+    page = t.html(
+        t.head(
+            inject_js_footer('https://example.com/script.js'),
+        ),
+    )
+    assert page
+    result = page.build()
+    assert result

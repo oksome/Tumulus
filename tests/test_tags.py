@@ -21,8 +21,13 @@ from tumulus.tags import HTMLTags as t
 
 
 def test_html():
-    r = t.html('Hello')
-    r
+    r = t.p('Hello')
+    assert r
+
+
+def test_class_arg():
+    r = t.p('Hello', class_='important')
+    assert r
 
 
 def test_page():

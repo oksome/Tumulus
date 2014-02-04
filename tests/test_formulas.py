@@ -17,10 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from tumulus.tags import HTMLTags as t
 import tumulus.formulas as f
+
 
 def test_css():
     r = f.css('style.css')
     r.build()
 
+
+def test_mobile():
+    r = f.mobile()
+    assert r
+
+
+def test_utf8():
+    r = f.utf8()
+    r.build()

@@ -19,6 +19,12 @@
 
 import tumulus.embed as e
 
+
 def test_youtube():
     r = e.youtube('dQw4w9WgXcQ')
+    r.build()
+
+
+def test_vimeo():
+    r = e.vimeo('75260457')
     r.build()
