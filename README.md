@@ -26,3 +26,16 @@ Example
     
     print t.build()
 ```
+
+Run tests
+---
+
+Tests use py.test.
+
+Run all tests with `py.test`.
+
+Generate a coverage report :
+
+```bash
+py.test --cov . && coverage html
+```
