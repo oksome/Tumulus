@@ -54,9 +54,11 @@ class HTMLTagsGenerator():
         else:
             element = self._tag_elements.get(name, Element)
             if name in self._empty_tags:
-                return EmptyTag(name, element)
+                result = EmptyTag(name, element)
             else:
                 #assert name in self._closing_tags
-                return Tag(name, element)
+                result = Tag(name, element)
+            self._cache[name] = result
+            return result
 
 HTMLTags = HTMLTagsGenerator()

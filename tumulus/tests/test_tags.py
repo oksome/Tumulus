@@ -23,6 +23,15 @@ from tumulus.tags import HTMLTags as t
 def test_html():
     r = t.p('Hello')
     assert r
+    r2 = t.p('Hello')
+    assert r2
+
+
+def test_unknown_component():
+    r = t.p(object())
+    assert r
+    soup = r.soup()
+    assert soup
 
 
 def test_class_arg():

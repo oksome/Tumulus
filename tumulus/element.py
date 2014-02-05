@@ -40,9 +40,9 @@ class Element(object):
                 components_soup.append(c.soup())
             elif type(c) in (str, ):
                 components_soup.append(BeautifulSoup(str(c)))
-            else:
+            # else:
                 # Component should not be integrated
-                pass
+                # pass
         return components_soup
 
     def build(self):
