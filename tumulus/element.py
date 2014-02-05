@@ -29,22 +29,6 @@ class Element(object):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def html(self):
-        components_html = ''
-        for c in self.components:
-            if hasattr(c, 'html'):
-                components_html += c.html() + '\n'
-            elif type(c) in (str, ):
-                components_html += c + '\n'
-        return ''.join((
-            '<{} '.format(self.tagname),
-            ' '.join(key + '="{}"'.format(self.args[key])
-                     for key in self.args),
-            '>\n{}\n</{}>'.format(components_html, self.tagname),
-            ))
-
-    __str__ = build = html
-
     def soup(self):
         '''
             Returns HTML as a BeautifulSoup element.
@@ -54,14 +38,15 @@ class Element(object):
         for c in self.components:
             if hasattr(c, 'soup'):
                 components_soup.append(c.soup())
-            elif hasattr(c, 'html'):
-                components_soup.append(BeautifulSoup(c.html()))
             elif type(c) in (str, ):
                 components_soup.append(BeautifulSoup(str(c)))
             else:
                 # Component should not be integrated
                 pass
         return components_soup
+
+    def build(self):
+        return self.soup().prettify()
 
     def plugins(self):
         '''
@@ -75,23 +60,6 @@ class Element(object):
                 plugins.append(c)
         return plugins
 
-    def __iter__(self):
-        'Hack to be returned to CherryPy with no prior conversion'
-        class TagIterator(object):
-
-            def __init__(self, parent):
-                self.stop = False
-                self.parent = parent
-
-            def next(self):
-                if self.stop:
-                    raise StopIteration
-                else:
-                    self.stop = True
-                    return str(self.parent)
-
-        return TagIterator(self)
-
 
 class EmptyElement(Element):
 
@@ -102,23 +70,8 @@ class EmptyElement(Element):
             kwargs['class'] = kwargs.pop('class_')
         self.args = kwargs
 
-    def html(self):
-        return ''.join((
-            '<{} '.format(self.tagname),
-            ' '.join(key + '="' + self.args[key] + '"' for key in self.args),
-            ' />',
-            ))
-
-    __str__ = build = html
-
 
 class HTMLElement(Element):
-
-    def html(self):
-        'Adding an HTML doctype to the generated HTML.'
-        return '<!doctype html>\n' + Element.build(self)
-
-    __str__ = html
 
     def soup(self):
         '''
@@ -134,6 +87,3 @@ class HTMLElement(Element):
             dom = plugin(dom)
 
         return dom
-
-    def build(self):
-        return self.soup().prettify()
