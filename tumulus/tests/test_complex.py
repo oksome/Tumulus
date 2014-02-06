@@ -20,8 +20,9 @@
 from tumulus.tags import HTMLTags as t
 import tumulus.formulas as f
 
+
 def test_page():
-    t.html(
+    page = t.html(
         t.head(
             t.title('Title'),
             t.meta(charset='utf-8'),
@@ -35,4 +36,5 @@ def test_page():
             t.p('Come back later for more !'),
         ),
     )
-
+    assert page
+    assert page.build()

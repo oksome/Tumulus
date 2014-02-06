@@ -52,6 +52,12 @@ class Lib:
                 raise KeyError('Unknown library name: "{}"'
                                .format(name_or_URL))
 
+    def __hash__(self):
+        return str.__hash__(self.__class__.__name__)
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.url == other.url
+
 
 class JSLib(Lib):
     known_libs = known_js_libs
@@ -82,6 +88,7 @@ class CSSLib(Lib):
             DOM.html.insert(0, Tag(name='head'))
         DOM.head.append(tag)
         return DOM
+
 
 js = JSLib
 css = CSSLib

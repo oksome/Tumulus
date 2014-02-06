@@ -19,6 +19,8 @@
 
 from bs4 import BeautifulSoup, Tag
 from bs4.builder import HTML5TreeBuilder
+from collections import OrderedDict
+
 from tumulus.lib import Lib
 
 BUILDER = HTML5TreeBuilder()
@@ -53,7 +55,7 @@ class Element(object):
     def build(self):
         return self.soup().prettify()
 
-    def plugins(self):
+    def plugins(self, deduplicate=False):
         '''
             Returns a flattened list of all plugins used by page components.
         '''
@@ -65,6 +67,12 @@ class Element(object):
                 plugins.append(c)
             elif hasattr(c, 'is_plugin') and c.is_plugin:
                 plugins.append(c)
+
+        if deduplicate:
+            #import pdb; pdb.set_trace()
+            print('before=', plugins)
+            plugins = list(OrderedDict.fromkeys(plugins))
+            print('after=', plugins)
         return plugins
 
 
@@ -83,7 +91,7 @@ class HTMLElement(Element):
         soup = Element.soup(self)
         dom.append(soup)
 
-        for plugin in self.plugins():
+        for plugin in self.plugins(deduplicate=True):
             print('plugin', plugin)
             dom = plugin(dom)
 

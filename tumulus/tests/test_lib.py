@@ -61,6 +61,16 @@ def test_js_insert():
 </html>'''
 
 
+def test_js_duplicates():
+    page = t.html(
+        lib.js('d3'),
+        lib.js('d3'),
+    )
+    result = page.build()
+    print(result)
+    assert result.count('http://d3js.org/d3.v3.min.js') == 1
+
+
 def test_css_default():
     assert lib.css('bootstrap')
 
