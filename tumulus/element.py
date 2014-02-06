@@ -69,10 +69,7 @@ class Element(object):
                 plugins.append(c)
 
         if deduplicate:
-            #import pdb; pdb.set_trace()
-            print('before=', plugins)
             plugins = list(OrderedDict.fromkeys(plugins))
-            print('after=', plugins)
         return plugins
 
 
@@ -92,7 +89,6 @@ class HTMLElement(Element):
         dom.append(soup)
 
         for plugin in self.plugins(deduplicate=True):
-            print('plugin', plugin)
             dom = plugin(dom)
 
         return dom
