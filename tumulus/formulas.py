@@ -30,8 +30,8 @@ def css(href):
 
 def mobile():
     return t.meta(name="viewport", content="width=device-width, user-scalable=no").build() \
-         + t.meta(name='apple-mobile-web-app-capable', content="yes").build() \
-         + t.meta(name="mobile-web-app-capable", content="yes").build()
+        + t.meta(name='apple-mobile-web-app-capable', content="yes").build() \
+        + t.meta(name="mobile-web-app-capable", content="yes").build()
 
 
 def utf8():
