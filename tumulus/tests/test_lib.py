@@ -85,7 +85,6 @@ def test_css_insert():
     assert result == '''<!DOCTYPE html>
 <html>
  <head>
-  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  </link>
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
  </head>
 </html>'''

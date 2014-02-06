@@ -23,11 +23,14 @@
 '''
 
 from bs4 import Tag
+from bs4.builder import HTML5TreeBuilder
+
+BUILDER = HTML5TreeBuilder()
 
 
 def inject_js_footer(URL):
     def f(html):
-        tag = Tag(name='script')
+        tag = Tag(name='script', builder=BUILDER)
         tag.attrs = {
             'type': 'text/javascript',
             'src': URL,
@@ -42,7 +45,7 @@ def inject_js_footer(URL):
 
 def inject_js_head(URL):
     def f(html):
-        tag = Tag(name='script')
+        tag = Tag(name='script', builder=BUILDER)
         tag.attrs = {
             'type': 'text/javascript',
             'src': URL,
@@ -57,7 +60,7 @@ def inject_js_head(URL):
 
 def inject_css(URL):
     def f(html):
-        tag = Tag(name='link')
+        tag = Tag(name='link', builder=BUILDER)
         tag.attrs = {
             'type': 'text/css',
             'rel': 'stylesheet',

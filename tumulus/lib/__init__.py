@@ -18,7 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from bs4 import Tag
-from tumulus.plugins import inject_css, inject_js_footer, inject_js_head
+from bs4.builder import HTML5TreeBuilder
+
+BUILDER = HTML5TreeBuilder()
 
 
 known_js_libs = {
@@ -55,7 +57,7 @@ class JSLib(Lib):
     known_libs = known_js_libs
 
     def __call__(self, DOM):
-        tag = Tag(name='script')
+        tag = Tag(name='script', builder=BUILDER)
         tag.attrs = {
             'type': 'text/javascript',
             'src': self.url,
@@ -68,10 +70,9 @@ class JSLib(Lib):
 
 class CSSLib(Lib):
     known_libs = known_css_libs
-    generator = inject_css
 
     def __call__(self, DOM):
-        tag = Tag(name='link')
+        tag = Tag(name='link', builder=BUILDER)
         tag.attrs = {
             'type': 'text/css',
             'rel': 'stylesheet',

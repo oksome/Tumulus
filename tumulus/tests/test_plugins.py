@@ -35,8 +35,9 @@ def test_inject_css():
     assert page
     result = page.build()
     assert result
+    print(result)
     assert '<link href="https://example.com/style.css" ' \
-           'rel="stylesheet" type="text/css">' in result
+           'rel="stylesheet" type="text/css"/>' in result
 
 
 def test_inject_css_nohead():

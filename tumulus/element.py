@@ -18,9 +18,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from bs4 import BeautifulSoup, Tag
+from bs4.builder import HTML5TreeBuilder
 from tumulus.lib import Lib
 
-BeautifulSoup("markup", "html5")
+BUILDER = HTML5TreeBuilder()
 
 
 class Element(object):
@@ -36,7 +37,7 @@ class Element(object):
         '''
             Returns HTML as a BeautifulSoup element.
         '''
-        components_soup = Tag(name=self.tagname)
+        components_soup = Tag(name=self.tagname, builder=BUILDER)
         components_soup.attrs = self.args
         for c in self.components:
             if hasattr(c, 'soup'):
