@@ -51,10 +51,10 @@ def test_page():
 <html>
  <body>
   <h1>
-Title
+   Title
   </h1>
   <p>
-Paragraph
+   Paragraph
   </p>
  </body>
 </html>'''

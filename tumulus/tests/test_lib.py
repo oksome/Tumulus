@@ -19,6 +19,7 @@
 
 import pytest
 import tumulus.lib as lib
+from tumulus.tags import HTMLTags as t
 
 
 def test_is_URL():
@@ -35,23 +36,56 @@ def test_js_default():
     assert lib.js('bootstrap')
 
 
+def test_js_unknown():
+    with pytest.raises(Exception):
+        lib.js('unknown')
+
+
 def test_js_external():
     assert lib.js('https://example.com/script.js')
 
 
-def test_js_unknown():
-    with pytest.raises(Exception):
-        lib.js('unknown')
+def test_js_insert():
+    p = t.html(
+        lib.js('d3'),
+    )
+    assert p
+    result = p.build()
+    assert result
+    assert result == '''<!DOCTYPE html>
+<html>
+ <body>
+  <script src="http://d3js.org/d3.v3.min.js" type="text/javascript">
+  </script>
+ </body>
+</html>'''
 
 
 def test_css_default():
     assert lib.css('bootstrap')
 
 
+def test_css_unknown():
+    with pytest.raises(Exception):
+        lib.css('unknown')
+
+
 def test_css_external():
     assert lib.css('https://example.com/style.css')
 
 
-def test_css_unknown():
-    with pytest.raises(Exception):
-        lib.css('unknown')
+def test_css_insert():
+    p = t.html(
+        lib.css('bootstrap'),
+    )
+    assert p
+    result = p.build()
+    print(result)
+    assert result
+    assert result == '''<!DOCTYPE html>
+<html>
+ <head>
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  </link>
+ </head>
+</html>'''

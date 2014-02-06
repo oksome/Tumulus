@@ -18,6 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from bs4 import BeautifulSoup, Tag
+from tumulus.lib import Lib
+
+BeautifulSoup("markup", "html5")
 
 
 class Element(object):
@@ -39,7 +42,8 @@ class Element(object):
             if hasattr(c, 'soup'):
                 components_soup.append(c.soup())
             elif type(c) in (str, ):
-                components_soup.append(BeautifulSoup(str(c)))
+                # components_soup.append(BeautifulSoup(str(c)))
+                components_soup.append(str(c))
             # else:
                 # Component should not be integrated
                 # pass
@@ -56,6 +60,8 @@ class Element(object):
         for c in self.components:
             if hasattr(c, 'plugins'):
                 plugins += c.plugins()
+            elif isinstance(c, Lib):
+                plugins.append(c)
             elif hasattr(c, 'is_plugin') and c.is_plugin:
                 plugins.append(c)
         return plugins

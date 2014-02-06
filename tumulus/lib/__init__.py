@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from bs4 import Tag
 from tumulus.plugins import inject_css, inject_js_footer, inject_js_head
 
 
@@ -30,25 +31,56 @@ known_css_libs = {
     'bootstrap': 'https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css',
 }
 
+
 def is_URL(name_or_URL):
     return '//' in name_or_URL
 
 
-def js(name_or_URL):
-    if is_URL(name_or_URL):
-        return inject_js_footer(name_or_URL)
-    elif name_or_URL.lower() in known_js_libs:
-        URL = known_js_libs[name_or_URL.lower()]
-        return inject_js_footer(URL)
-    else:
-        raise Exception
+class Lib:
+    'Abstract class.'
+
+    known_libs = None
+
+    def __init__(self, name_or_URL):
+        self.url = self.known_libs.get(name_or_URL)
+        if not self.url:
+            if is_URL(name_or_URL):
+                self.url = name_or_URL
+            else:
+                raise KeyError('Unknown library name: "{}"'
+                               .format(name_or_URL))
 
 
-def css(name_or_URL):
-    if is_URL(name_or_URL):
-        return inject_css(name_or_URL)
-    elif name_or_URL.lower() in known_css_libs:
-        URL = known_css_libs[name_or_URL.lower()]
-        return inject_css(URL)
-    else:
-        raise Exception
+class JSLib(Lib):
+    known_libs = known_js_libs
+
+    def __call__(self, DOM):
+        tag = Tag(name='script')
+        tag.attrs = {
+            'type': 'text/javascript',
+            'src': self.url,
+        }
+        if not DOM.body:
+            DOM.html.insert(0, Tag(name='body'))
+        DOM.body.append(tag)
+        return DOM
+
+
+class CSSLib(Lib):
+    known_libs = known_css_libs
+    generator = inject_css
+
+    def __call__(self, DOM):
+        tag = Tag(name='link')
+        tag.attrs = {
+            'type': 'text/css',
+            'rel': 'stylesheet',
+            'href': self.url,
+        }
+        if not DOM.head:
+            DOM.html.insert(0, Tag(name='head'))
+        DOM.head.append(tag)
+        return DOM
+
+js = JSLib
+css = CSSLib
