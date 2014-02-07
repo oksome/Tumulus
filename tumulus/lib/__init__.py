@@ -27,6 +27,7 @@ known_js_libs = {
     'd3': 'http://d3js.org/d3.v3.min.js',
     'jquery': 'https//code.jquery.com/jquery-1.10.2.min.js',
     'bootstrap': 'https//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js',
+    'dimple': 'http://dimplejs.org/dist/dimple.v1.1.4.min.js',
 }
 
 known_css_libs = {
@@ -35,7 +36,8 @@ known_css_libs = {
 
 
 def is_URL(name_or_URL):
-    return '//' in name_or_URL
+    return '//' in name_or_URL \
+        or name_or_URL.startswith('/')
 
 
 class Lib:
