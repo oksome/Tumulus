@@ -22,7 +22,8 @@ from setuptools import setup
 
 setup(name='Tumulus',
       version='0.1',
-      description='Python HTML Generator; Goodbye Templates',
+      description='Python HTML Generator for Recyclable Web Elements',
+      long_description=open('README.md').read(),
       author='OKso.me',
       author_email='@okso.me',
       url='https://github.com/oksome/Tumulus/',
