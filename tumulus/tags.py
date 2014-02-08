@@ -61,4 +61,4 @@ class HTMLTagsGenerator():
             self._cache[name] = result
             return result
 
-HTMLTags = HTMLTagsGenerator()
+tags = HTMLTags = HTMLTagsGenerator()

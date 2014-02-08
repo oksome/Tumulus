@@ -13,7 +13,7 @@ Example
 ---
 
 ```python
-from tumulus.tags import HTMLTags as t
+from tumulus.tags import tags as t
 import tumulus.lib as lib
 
 def bootstrap_button(text):
