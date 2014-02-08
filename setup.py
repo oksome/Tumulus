@@ -19,11 +19,13 @@
 
 from setuptools import setup
 
+with open('README.rst') as file:
+    long_description = file.read()
 
 setup(name='Tumulus',
-      version='0.1',
+      version='0.1.2',
       description='Python HTML Generator for Recyclable Web Elements',
-      long_description=open('README.md').read(),
+      long_description=long_description,
       author='OKso.me',
       author_email='@okso.me',
       url='https://github.com/oksome/Tumulus/',
