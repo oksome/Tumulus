@@ -1,30 +1,45 @@
 tumulus
 =======
 
-HTML Generator, kinda templating engine
+Python HTML Generator for Recyclable Web Elements.
+
+Tumulus is an alternative to Templating languages found in many templating engines such as Jinja2, Django, Mako, ...
+Such templating engines make it difficult to separate logical elements of the page, hence discouraging reusability.
+
+The motivation behind Tumulus is to encourage developers to build reusable web components that can then be
+put together to build web pages or applications.
 
 Example
 ---
 
 ```python
-    import tumulus.tags as t
-    
-    page = t.html(
+from tumulus.tags import HTMLTags as t
+import tumulus.lib as lib
+
+def bootstrap_button(text):
+    return t.div(
+        # Standard HTML button with 'text' inside:
+        t.button(text, class_='btn btn-info'),
+        # Injecting Bootstrap's CSS file in the HTML head.
+        lib.css('bootstrap')
+        );
+
+def page(title, text):
+    return t.html(
         t.head(
             t.title('Title'),
             t.meta(charset='utf-8'),
-            f.css('style.css'),
         ),
         t.body(
-            t.h1('Page Title'),
+            t.h1(title),
             t.p(
-                t.i('Hello'),
+                text
+                ),
+            bootstrap_button('Click Here'),
             ),
-            t.p('Come back later for more !'),
-        ),
-    )
-    
-    print t.build()
+        )
+
+print(page('Hello World', 'Hello from Tumulus').build())
 ```
 
 Run tests
