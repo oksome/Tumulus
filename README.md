@@ -13,21 +13,27 @@ Example
 ---
 
 ```python
+# Importing the basic brick of Tumulus, the tags creator:
 from tumulus.tags import tags as t
+# This module helps to add JS/CSS libraries in page head/footer:
 import tumulus.lib as lib
 
 def bootstrap_button(text):
+    '''Returns a Bootstrap formatted button, and adds the CSS of
+    Bootstrap to the dependencies of the page.'''
     return t.div(
         # Standard HTML button with 'text' inside:
         t.button(text, class_='btn btn-info'),
         # Injecting Bootstrap's CSS file in the HTML head.
+        # This can be done almost anywhere, as it will be included
+        # somewhere else, and there is de-duplication.
         lib.css('bootstrap')
         );
 
 def page(title, text):
     return t.html(
         t.head(
-            t.title('Title'),
+            t.title(title),
             t.meta(charset='utf-8'),
         ),
         t.body(
@@ -39,18 +45,23 @@ def page(title, text):
             ),
         )
 
-print(page('Hello World', 'Hello from Tumulus').build())
+print(
+    page('Hello World', 'Hello from Tumulus').build()
+    )
 ```
 
 Run tests
 ---
 
-Tests use py.test.
+Tumulus uses testing intensely, and tries to keep a coverage close from 100%. Testing
+is done using `pytest` and `pytest-cov`.
 
-Run all tests with `py.test`.
-
-Generate a coverage report :
-
+Run all tests:
 ```bash
-py.test --cov . && coverage html
+py.test tumulus
+```
+
+Generate a coverage report:
+```bash
+py.test --cov tumulus && coverage html
 ```
