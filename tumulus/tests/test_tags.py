@@ -58,3 +58,30 @@ def test_page():
   </p>
  </body>
 </html>'''
+
+
+def test_sum():
+    p1 = t.p('First Paragraph.')
+    p2 = t.p('Second Paragraph.')
+    assert p1
+    assert p2
+
+    group1 = (p1, p2)
+    assert group1
+
+    p3 = t.p('Third Paragraph.')
+    group2 = (group1, p3)
+
+    section = t.section(group2)
+    assert section
+    assert section.build() == '''<section>
+ <p>
+  First Paragraph.
+ </p>
+ <p>
+  Second Paragraph.
+ </p>
+ <p>
+  Third Paragraph.
+ </p>
+</section>'''

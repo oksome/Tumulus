@@ -34,9 +34,13 @@ def viewport():
 
 
 def mobile():
-    return t.meta(name="viewport", content="width=device-width, user-scalable=no").build() \
-        + t.meta(name='apple-mobile-web-app-capable', content="yes").build() \
-        + t.meta(name="mobile-web-app-capable", content="yes").build()
+    return (t.meta(name="viewport",
+                   content="width=device-width, user-scalable=no"),
+            t.meta(name='apple-mobile-web-app-capable',
+                   content="yes"),
+            t.meta(name="mobile-web-app-capable",
+                   content="yes"),
+            )
 
 
 def utf8():

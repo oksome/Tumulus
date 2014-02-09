@@ -18,18 +18,39 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import tumulus.formulas as f
+from tumulus.tags import HTMLTags as t
 
 
 def test_css():
     r = f.css('style.css')
-    r.build()
+    assert r
+    assert r.build()
 
 
 def test_mobile():
     r = f.mobile()
     assert r
+    head = t.head(r)
+    assert head.build() == '''<head>
+ <meta content="width=device-width, user-scalable=no" name="viewport"/>
+ <meta content="yes" name="apple-mobile-web-app-capable"/>
+ <meta content="yes" name="mobile-web-app-capable"/>
+</head>'''
 
 
 def test_utf8():
     r = f.utf8()
-    r.build()
+    assert r
+    assert r.build()
+
+
+def test_viewport():
+    r = f.viewport()
+    assert r
+    assert r.build()
+
+
+def test_IEedge():
+    r = f.IEedge()
+    assert r
+    assert r.build()

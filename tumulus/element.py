@@ -25,6 +25,10 @@ from tumulus.lib import Lib
 
 BUILDER = HTML5TreeBuilder()
 
+# Flattens iterable elements to allow for the combination of elements in lists:
+to_flatten = lambda x: isinstance(x, list) or isinstance(x, tuple)
+flatten = lambda l: sum(map(flatten, l), []) if to_flatten(l) else [l]
+
 
 class Element(object):
 
@@ -41,7 +45,7 @@ class Element(object):
         '''
         components_soup = Tag(name=self.tagname, builder=BUILDER)
         components_soup.attrs = self.args
-        for c in self.components:
+        for c in flatten(self.components):
             if hasattr(c, 'soup'):
                 components_soup.append(c.soup())
             elif type(c) in (str, ):
