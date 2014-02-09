@@ -28,6 +28,11 @@ def css(href):
     return t.link(rel='stylesheet', type='text/css', href=href)
 
 
+def viewport():
+    return t.meta(name="viewport",
+                  content="width=device-width, initial-scale=1")
+
+
 def mobile():
     return t.meta(name="viewport", content="width=device-width, user-scalable=no").build() \
         + t.meta(name='apple-mobile-web-app-capable', content="yes").build() \
@@ -36,3 +41,7 @@ def mobile():
 
 def utf8():
     return t.meta(charset='utf-8')
+
+
+def IEedge():
+    return t.meta(content="IE=edge", **{"http-equiv": "X-UA-Compatible"})
