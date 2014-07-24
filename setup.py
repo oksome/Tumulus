@@ -23,7 +23,7 @@ with open('README.rst') as file:
     long_description = file.read()
 
 setup(name='Tumulus',
-      version='0.1.5',
+      version='0.1.6',
       description='Python HTML Generator for Recyclable Web Elements',
       long_description=long_description,
       author='OKso.me',
