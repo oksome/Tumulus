@@ -22,9 +22,20 @@ import tumulus.embed as e
 
 def test_youtube():
     r = e.youtube('dQw4w9WgXcQ')
-    r.build()
+    print(r.build())
+    assert r.build() == (
+        '<iframe'
+            ' allowfullscreen="" frameborder="0" height="360" id="ytplayer"'
+            ' src="https://www.youtube.com/embed/dQw4w9WgXcQ" type="text/html"'
+            ' width="640">\n'
+        '</iframe>')
 
 
 def test_vimeo():
     r = e.vimeo('75260457')
-    r.build()
+    assert r.build() == (
+        '<iframe'
+            ' allowfullscreen="" frameborder="0" height="360"'
+            ' mozallowfullscreen="" src="https://player.vimeo.com/video/75260457"'
+            ' webkitallowfullscreen="" width="640">\n'
+        '</iframe>')
