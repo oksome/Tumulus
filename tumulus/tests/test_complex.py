@@ -37,4 +37,27 @@ def test_page():
         ),
     )
     assert page
-    assert page.build()
+    assert page.build() == '''<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   Title
+  </title>
+  <meta charset="utf-8"/>
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <h1>
+   Page Title
+  </h1>
+  <p>
+   <i>
+    Hello
+   </i>
+  </p>
+  <p>
+   Come back later for more !
+  </p>
+ </body>
+</html>'''
+

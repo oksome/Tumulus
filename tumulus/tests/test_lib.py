@@ -51,7 +51,6 @@ def test_js_insert():
     )
     assert p
     result = p.build()
-    assert result
     assert result == '''<!DOCTYPE html>
 <html>
  <body>
@@ -67,7 +66,6 @@ def test_js_duplicates():
         lib.js('d3'),
     )
     result = page.build()
-    print(result)
     assert result.count('http://d3js.org/d3.v3.min.js') == 1
 
 

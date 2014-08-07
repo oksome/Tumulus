@@ -89,6 +89,8 @@ class HTMLElement(Element):
             generated Tag HTML.
         '''
         dom = BeautifulSoup('<!DOCTYPE html>')
+        list(dom.children)[1].replaceWith('')  # Removing default content
+
         soup = Element.soup(self)
         dom.append(soup)
 
