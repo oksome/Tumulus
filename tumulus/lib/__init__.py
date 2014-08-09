@@ -26,7 +26,7 @@ BUILDER = HTML5TreeBuilder()
 known_js_libs = {
     'd3': 'http://d3js.org/d3.v3.min.js',
     'jquery': 'https://code.jquery.com/jquery-1.10.2.min.js',
-    'bootstrap': 'https//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js',
+    'bootstrap': 'https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js',
     'dimple': 'http://dimplejs.org/dist/dimple.v1.1.4.min.js',
     'foundation': 'http://okso.be/F/js/foundation-5.1.1/js/foundation.min.js',
     'masonry': 'http://masonry.desandro.com/masonry.pkgd.min.js',
