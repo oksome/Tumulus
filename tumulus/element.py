@@ -32,19 +32,19 @@ flatten = lambda l: sum(map(flatten, l), []) if to_flatten(l) else [l]
 
 class Element(object):
 
-    def __init__(self, tagname, components=None, **kwargs):
+    def __init__(self, tagname, components=None, attributes=None):
         self.tagname = tagname
         self.components = components if components else []
-        if 'class_' in kwargs:
-            kwargs['class'] = kwargs.pop('class_')
-        self.args = kwargs
+        if attributes and 'class_' in attributes:
+            attributes['class'] = attributes.pop('class_')
+        self.attributes = attributes if attributes else {}
 
     def soup(self):
         '''
             Returns HTML as a BeautifulSoup element.
         '''
         components_soup = Tag(name=self.tagname, builder=BUILDER)
-        components_soup.attrs = self.args
+        components_soup.attrs = self.attributes
         for c in flatten(self.components):
             if hasattr(c, 'soup'):
                 components_soup.append(c.soup())

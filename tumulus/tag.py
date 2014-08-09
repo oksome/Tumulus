@@ -31,10 +31,10 @@ class Tag(object):
         self.element = element
 
     def __call__(self, *inner, **kwargs):
-        return self.element(self.tagname, inner, **kwargs)
+        return self.element(self.tagname, components=inner, attributes=kwargs)
 
 
 class EmptyTag(Tag):
 
     def __call__(self, *inner, **kwargs):
-        return EmptyElement(self.tagname, **kwargs)
+        return EmptyElement(self.tagname, attributes=kwargs)
