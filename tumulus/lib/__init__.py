@@ -25,17 +25,18 @@ BUILDER = HTML5TreeBuilder()
 
 known_js_libs = {
     'd3': 'http://d3js.org/d3.v3.min.js',
-    'jquery': 'https://code.jquery.com/jquery-1.10.2.min.js',
-    'bootstrap': 'https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js',
-    'dimple': 'http://dimplejs.org/dist/dimple.v1.1.4.min.js',
-    'foundation': 'http://okso.be/F/js/foundation-5.1.1/js/foundation.min.js',
+    'jquery': 'http://code.jquery.com/jquery-2.1.1.min.js',
+    'jquery1': 'http://code.jquery.com/jquery-1.11.1.min.js',
+    'bootstrap': '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
+    'dimple': 'http://dimplejs.org/dist/dimple.v2.1.0.min.js',
+    'foundation': '//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js',
     'masonry': 'http://masonry.desandro.com/masonry.pkgd.min.js',
 }
 
 known_css_libs = {
-    'bootstrap': 'https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css',
-    'bootstrap-theme': 'https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css',
-    'foundation': 'http://okso.be/F/js/foundation-5.1.1/css/foundation.min.css',
+    'bootstrap': '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
+    'bootstrap-theme': '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css',
+    'foundation': '//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/css/foundation.min.css',
 }
 
 

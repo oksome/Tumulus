@@ -93,6 +93,6 @@ def test_css_insert():
     assert result == '''<!DOCTYPE html>
 <html>
  <head>
-  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
  </head>
 </html>'''
