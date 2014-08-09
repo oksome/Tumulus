@@ -19,3 +19,11 @@
 
 __author__ = "OKso <okso.me>"
 __version__ = '0.1.7'
+
+from tumulus.tags import tags
+import tumulus.formulas as formulas
+import tumulus.lib as lib
+
+# Shortcuts
+t = tags
+f = formulas
