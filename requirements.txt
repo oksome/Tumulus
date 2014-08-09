@@ -2,3 +2,4 @@ beautifulsoup4==4.3.2
 # Required for tests:
 #pytest==2.5.1
 #pytest-cov==1.6
+#pytest-xdist
