@@ -23,14 +23,14 @@ with open('README.rst') as file:
     long_description = file.read()
 
 setup(name='Tumulus',
-      version='0.1.7',
+      version='0.1.8',
       description='Python HTML Generator for Recyclable Web Elements',
       long_description=long_description,
       author='OKso.me',
       author_email='@okso.me',
       url='https://github.com/oksome/Tumulus/',
       packages=['tumulus', 'tumulus.lib', 'tumulus.plugins'],
-      install_requires=['beautifulsoup4', 'html5lib', 'lxml'],
+      install_requires=['beautifulsoup4', 'html5lib'],
       license='AGPLv3',
       keywords="html generator template templating engine",
       classifiers=['Development Status :: 3 - Alpha',
