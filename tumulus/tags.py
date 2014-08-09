@@ -39,10 +39,23 @@ class HTMLTagsGenerator():
         'img', 'iframe',
         'body', 'div', 'span', 'pre',
         'h1', 'h2', 'h3',
-        'header', 'section',
         'ul', 'li', 'br',
-        'a', 'p', 'i',
+        'a', 'p', 'i', 'b',
         'form', 'input', 'textarea',
+        'menu',
+        # New Elements in HTML5:
+        #  Canvas
+        'canvas',
+        #  Media
+        'audio', 'embed', 'source', 'track', 'video',
+        #  Form
+        'datalist', 'keygen', 'output',
+        #  Semantic
+        'article', 'aside', 'bdi', 'details', 'dialog',
+        'figcaption', 'figure', 'footer', 'header', 'main',
+        'mark', 'menuitem', 'meter', 'nav', 'progress',
+        'rp', 'rt', 'ruby', 'section', 'summary',
+        'time', 'wbr',
         )
 
     def __init__(self):
