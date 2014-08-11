@@ -89,7 +89,11 @@ class HTMLElement(Element):
             generated Tag HTML.
         '''
         dom = BeautifulSoup('<!DOCTYPE html>')
-        list(dom.children)[1].replaceWith('')  # Removing default content
+
+        # BeautifulSoup behaves differently if lxml is installed or not,
+        # and will create a basic HTML structure if lxml is installed.
+        if len(dom) > 1:
+            list(dom.children)[1].replaceWith('')  # Removing default content
 
         soup = Element.soup(self)
         dom.append(soup)
