@@ -85,3 +85,19 @@ def test_sum():
   Third Paragraph.
  </p>
 </section>'''
+
+def test_script():
+    r = t.section(
+        t.h2('Subtitle'),
+        t.script('alert("hello");'),
+        )
+    assert r
+    print(r.build())
+    assert r.build() == """<section>
+ <h2>
+  Subtitle
+ </h2>
+ <script>
+  alert("hello");
+ </script>
+</section>"""
