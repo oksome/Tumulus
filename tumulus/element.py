@@ -59,6 +59,27 @@ class Element(object):
     def build(self):
         return self.soup().prettify()
 
+    def react(self, render=None):
+        content = ''
+        for c in flatten(self.components):
+            if hasattr(c, 'react'):
+                content += '\n    ' + c.react().replace('\n', '\n    ') + ','
+            elif hasattr(c, 'build'):
+                content += '\n    ' + '"{}"'.format(c.build())
+            elif type(c) in (str, ):
+                content += '\n    ' + '"{}"'.format(c)
+            # else:
+                # Component should not be integrated
+                # pass
+        dom = "React.DOM.{}(null,{}\n)" \
+            .format(self.tagname, content)
+
+        if not render:
+            return dom
+        else:
+            return "React.renderComponent(\n    {},\n    document.getElementById('{}')\n);" \
+                .format(dom.replace('\n', '\n    '), render)
+
     def plugins(self, deduplicate=False):
         '''
             Returns a flattened list of all plugins used by page components.
